@@ -16,6 +16,18 @@
 
 //CODE HERE
 
+class Character {
+  constructor(name, type) {
+    this.name = name;
+    this.type = type;
+  }
+
+  getInfo() {
+    return `This is a ${this.type} character named ${this.name}.`
+  }
+}
+
+
 //////////////////PROBLEM 2////////////////////
 
 /*
@@ -34,12 +46,27 @@
 
 //CODE HERE
 
+class NPC extends Character {
+  constructor(name, type, location, phrase) {
+    super(name, type);
+
+    this.location = location;
+    this.phrase = phrase;
+  }
+
+  dialogue() {
+    return `${this.name}: ${this.phrase}`
+  }
+}
+
 /*
     Create an NPC named Ralph who is a human located in Niceland. His phrase should be `I'm gonna wreck it!`. 
     Store your new NPC in a variable called 'ralph'.
 */
 
 //CODE HERE
+
+let ralph = new NPC("Ralph", "human", "Niceland", "I'm gonna wreck it!");
 
 /*
     Next you're going to create three variables to store information about Ralph.
@@ -49,6 +76,10 @@
 */
 
 //CODE HERE
+
+let ralphsInfo = ralph.getInfo();
+let ralphsDialogue = ralph.dialogue();
+let ralphsLocation = ralph.location;
 
 //////////////////PROBLEM 3////////////////////
 
@@ -75,6 +106,31 @@
 
 //CODE HERE
 
+class Player extends Character {
+  constructor(name, type, healthLevel, attackLevel) {
+    super(name, type);
+
+    this.healthLevel = healthLevel;
+    this.attackLevel = attackLevel;
+  }
+
+  defend(amount) {
+    this.healthLevel = this.healthLevel - amount;
+
+    if(this.healthLevel > 0) {
+      let hero = {
+        attackStrength: amount,
+        remainingHealth: this.healthLevel,
+        message: `${this.name} is still in the fight!`,
+        }
+      return hero;
+      } else {
+        return `${this.name} has been defeated!`;
+      }
+  }
+}
+
+
 /*
     Next, we'll create two Players.
     Store the first in a variable called aang, his name should be 'Aang' 
@@ -85,6 +141,9 @@
 
 //CODE HERE
 
+let aang = new Player("Aang", "airbender", 100, 100);
+let ozai = new Player("Ozai", "firebender", 100, 0);
+
 /*
     Let's see how a fight between these two would go. 
     Create a variable called 'battle' whose value is Ozai's 
@@ -93,6 +152,9 @@
 */
 
 //CODE HERE
+
+let battle = ozai.defend(100);
+console.log(battle);
 
 //////////////////PROBLEM 4////////////////////
 
@@ -112,6 +174,29 @@
 
 //CODE HERE
 
+class Hero extends Player {
+  constructor(name, type, healthLevel, attackLevel) {
+    super(name, type, attackLevel, healthLevel);
+
+    this.superPowers = [];
+  }
+
+  addSuperPower(power) {
+    this.superPowers.push(power);
+    console.log(this.superPowers[0]);
+  }
+
+  useSuperPower(index) {
+    return `${this.name} used ${this.superPowers[index]}!`;
+  }
+}
+
+let bob = new Hero("Bob", "human", 100, 100, ["speed", "strength"]);
+bob.addSuperPower("flight");
+console.log(bob);
+console.log(bob.useSuperPower(1));
+console.log(bob.superPowers);
+
 /*
   Create a hero named 'Fire Spitter' whose type is 'dragon'. 
   Fire Spitter's healthLevel and attackLevels should both be 5000. 
@@ -122,3 +207,10 @@
 */
 
 //CODE HERE
+
+let fireSpitter = new Hero("Fire Spitter", "dragon", 5000, 5000);
+fireSpitter.addSuperPower("spitting fire");
+fireSpitter.addSuperPower("transformation");
+fireSpitter.addSuperPower("diamond skin");
+
+let fireSpitterAttack = fireSpitter.useSuperPower(0);
