@@ -1,15 +1,19 @@
-import React, {Component} from "react";
+import React from "react";
 
 export default function BookShelf(props) {
-    // const mappedTitles = props.shelf.map((element, index) => {
-    //     return <p
-    //                 key={element.id}
-    //                 product={element} 
-    //                 index={index}
-    //             />
-    // });
+
+    const mappedTitles = props.shelf.map((element) => {
+        return ( 
+            <div className="mapped-titles">
+                <p>{element.title}</p>
+            </div>
+        )
+    });
 
     return (
-        <div className="book-shelf">Bookshelf</div>
+        <div className="book-shelf">
+            <h1>Your Shelf</h1>
+            {mappedTitles}
+        </div>
     )
 }

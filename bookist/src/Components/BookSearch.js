@@ -7,35 +7,40 @@ export default class BookSearch extends Component {
         this.state = {
             input: "",
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClear = this.handleClear.bind(this);
     }
 
-    handleInputChange(value) {
+    handleChange(userInput) {
         this.setState({
-            input: value,
+            input: userInput,
         })
     }
 
-    handleAdd() {
-        this.props.add(this.state.input);
-        this.setState({
-            input: "",
-        })
+    handleClick() {
+        this.props.filterBooks(this.state.input);
     }
 
     handleClear() {
-        
+        this.setState ({
+            input: "",
+        })
+        this.props.reset();
     }
 
     render () {
+        console.log(this.state);
         return (
         <div className="book-search">
             <input
                 id="input"
+                placeholder="Enter Title or Author"
                 value={this.state.input}
-                placeholder="Enter Title"
-                onChange={(e) => this.handleInputChange(e.target.value)}
+                onChange={(e) => this.handleChange(e.target.value)}
             />
-            <button id="search-button" onClick={this.handleAdd}>Search</button>
+            <button id="search-button" onClick={this.handleClick}>Search</button>
             <button id="clear-button" onClick={this.handleClear}>Clear Search</button>
         </div>
         )
